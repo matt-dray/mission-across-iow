@@ -1,1 +1,0 @@
-http://lle.gov.wales/services/wfs?version=1.0.0&request=GetFeature&typeName=inspire-nrw:NRW_MAIN_RIVERS&outputFormat=SHAPE-ZIP
