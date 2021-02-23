@@ -31,8 +31,7 @@ isolate_feature <- function(sf_in, feature) {
 
 
 # Extract features that intersect with the line or buffer geometry
-find_obstruction <- function(geometry, features_sf) {
-  slice(
-    features_sf,
-    st_intersects(geometry, features_sf)[[1]])
+find_obstruction <- function(features_sf, path_sf) {
+  row_nums <- st_intersects(path_sf, features_sf)[[1]]
+  slice(features_sf, row_nums)
 }

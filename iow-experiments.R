@@ -51,8 +51,9 @@ buffer <- make_buffer(linestring = line)
 
 
 # Fetch polygonal features for IoW
-osm_poly <- oe_get(
-  loc, layer = "multipolygons", stringsAsFactors = FALSE, quiet = TRUE
+osm_polys <- oe_get(
+  loc, layer = "multipolygons",
+  stringsAsFactors = FALSE, quiet = TRUE
 )
 
 # Fetch line features for IoW
@@ -60,22 +61,19 @@ osm_lines <-  oe_get(loc, stringsAsFactors = FALSE, quiet = TRUE)
 
 # Get all the features as a list object with one element per feature
 features <- map2(
-  list(osm_lines, osm_poly, osm_lines),
-  list("barrier", "building", "waterway"),
+  list(osm_lines, osm_polys, osm_polys, osm_lines),
+  list("barrier", "building", "natural", "waterway"),
   isolate_feature
 ) %>% 
-  set_names("barrs", "bldgs", "wways")
+  set_names("barrs", "bldgs", "natur", "wways")
 
 
 # Find obstructions -------------------------------------------------------
 
 
 # Find intersection between features and line
-obstructions <- map(
-  features,
-  ~find_obstruction(line, .x)
-) %>% 
-  set_names("barrs", "bldgs", "wways")
+obstructions <- map(.x = features, ~find_obstruction(.x, line)) %>% 
+  set_names("barrs", "bldgs", "natur", "wways")
 
 
 # Plot --------------------------------------------------------------------
@@ -106,6 +104,11 @@ leaflet() %>%
     data = obstructions$bldgs, group = "Buildings",
     color = "#F00", weight = 2, fill = TRUE, fillColor = "#F00", fillOpacity = 0.5,
     label = paste("Building:", obstructions$bldgs$type)
+  ) %>%
+  addPolygons(
+    data = filter(obstructions$natur, type == "water"), group = "Water bodies",
+    color = "#00F", weight = 2, fillColor = "#00F", fillOpacity = 0.5,
+    label = paste("Water body")
   ) %>% 
   addPolylines(
     data = obstructions$wways, group = "Waterways",
@@ -115,7 +118,11 @@ leaflet() %>%
   # Control which layers are shown
   addLayersControl(
     baseGroups = c("Simple", "Terrain", "Satellite"),
-    overlayGroups = c("Line/buffer", "Waterways", "Barriers", "Buildings"),
+    overlayGroups = c(
+      "Line/buffer", 
+      "Waterways", "Water bodies", 
+      "Barriers", "Buildings"
+    ),
     position = "topright",
     options = layersControlOptions(collapsed = FALSE)
   ) %>% 
