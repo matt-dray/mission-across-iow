@@ -1,3 +1,6 @@
+# mission-across-iow Shiny app
+# Matt Dray 2021
+# Server
 
 server <- function(input, output) {
   
@@ -73,21 +76,21 @@ server <- function(input, output) {
       ) %>% 
       # Control which layers are shown
       addLayersControl(
-        baseGroups = c("Simple", "Terrain", "Satellite"),
-        overlayGroups = c(
-          "Line/buffer", "Start/end",
-          "Water", "Barriers", "Buildings"
+        baseGroups = c("Simple", "Terrain", "Satellite"),  # radio button
+        overlayGroups = c(  # checkboxes
+          "Line/buffer", "Start/end",  # line-related
+          "Water", "Barriers", "Buildings"  # obstructions
         ),
         position = "topright",
         options = layersControlOptions(collapsed = FALSE)
       ) %>% 
       # Other map features
-      addMeasure(
-        position = "topright",
+      addMeasure(  # tool for users to measure distances
+        position = "topleft",
         primaryLengthUnit = "meters",
         primaryAreaUnit = "sqmeters"
       ) %>% 
-      addFullscreenControl()
+      addFullscreenControl()  # clickable full-screen button
     
   })
 }

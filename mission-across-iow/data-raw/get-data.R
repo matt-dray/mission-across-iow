@@ -1,9 +1,15 @@
+# mission-across-iow Shiny app
+# Matt Dray 2021
+# Fetch, prepare and save datasets
+
+
 # Prep workspace ----------------------------------------------------------
 
+
 # Attach packages
-library(sf)
-library(geojsonio)
-library(osmextract)
+library(geojsonio)  # CRAN v0.9.4
+library(osmextract) # CRAN v0.2.1
+library(sf)         # CRAN v0.9-7
 
 # Focus-location string
 loc <- "Isle of Wight"
@@ -12,8 +18,9 @@ loc <- "Isle of Wight"
 # Get IoW boundary --------------------------------------------------------
 
 
-# Fetch local authority district boundaries from the ONS Open Geography Portal
-# Dec 2020, generalised (20m) - clipped to the coastline (Mean High Water mark)
+# LAD boundaries (December 2020) UK BGC from the ONS Open Geography Portal
+# Generalised (20m) - clipped to the coastline (Mean High Water mark)
+# https://geoportal.statistics.gov.uk/datasets/local-authority-districts-december-2020-uk-bgc
 iow_extent <- geojson_read(
   "https://opendata.arcgis.com/datasets/db23041df155451b9a703494854c18c4_0.geojson",
   what = "sp"  # read as spatial class

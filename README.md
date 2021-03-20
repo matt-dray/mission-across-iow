@@ -6,7 +6,7 @@ or
 proof-of-concept.](https://www.repostatus.org/badges/latest/concept.svg)](https://www.repostatus.org/#concept)
 ![](https://img.shields.io/badge/Shiny-not_yet_hosted-blue?style=flat&labelColor=white&logo=RStudio&logoColor=blue)
 
-What's the easiest route to cross the [Isle of Wight](https://en.wikipedia.org/wiki/Isle_of_Wight) on foot?
+What's the easiest route to cross the [Isle of Wight](https://en.wikipedia.org/wiki/Isle_of_Wight) on foot in a straight line?
 
 ## Purpose
 
