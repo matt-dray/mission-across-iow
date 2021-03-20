@@ -4,11 +4,11 @@
 
 ui <- fluidPage(
     
-    theme = bslib::bs_theme(
+    theme = bs_theme(
         bg = "#333333",
         fg = "#FFFFFF",
         primary = "#BEBEBE",
-        base_font = bslib::font_google("IBM Plex Sans Condensed")
+        base_font = font_google("IBM Plex Sans Condensed")
     ),
     
     tags$head(
@@ -69,14 +69,14 @@ ui <- fluidPage(
             
             p(
                 a(href="https://www.matt-dray.com", "Matt Dray"), "|", 
-                a(href="https//www.github.com/matt-dray/mission-across-iow", "Source")
+                a(href="https://www.github.com/matt-dray/mission-across-iow", "Source")
             )
             
         ),  # end sidebarPanel
         
         mainPanel(
             
-            leafletOutput("leafmap")
+            leafletOutput("map", height = "100%")
 
         )  # end mainPanel
         

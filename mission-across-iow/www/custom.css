@@ -12,4 +12,4 @@
        url('../fonts/ibm-plex-sans-condensed-v7-latin-regular.svg#IBMPlexSansCondensed') format('svg'); /* Legacy iOS */
 }
 
-* { font-family: 'IBM Plex Sans Condensed', serif; }
+* { font-family: 'IBM Plex Sans Condensed', sans-serif; }

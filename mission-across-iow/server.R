@@ -4,7 +4,7 @@
 
 server <- function(input, output) {
   
-  output$leafmap <- renderLeaflet({
+  output$map <- renderLeaflet({
     
     # Build line between user's points, clip to IOW boundary
     line <- make_line(
@@ -21,6 +21,8 @@ server <- function(input, output) {
       set_names("barrs", "bldgs", "natur", "wways")
     
     # Set multi-use variables
+    marker_fill <- "darkblue"
+    icon_fill <- "white"
     col_line <- "#000"
     col_artifical <- "#F00"
     col_water <- "#00F"
@@ -47,9 +49,20 @@ server <- function(input, output) {
       ) %>%
       # Overlay groups: start and end points
       addAwesomeMarkers(
-        lng = c(input$y1, input$y2),
-        lat = c(input$x1, input$x2),
-        group = "Start/end"
+        lng = input$y1, lat = input$x1, group = "Start/end",
+        icon = awesomeIcons(
+          markerColor = "blue",
+          icon = "play", library = "fa", iconColor = "#FFF"
+        ),
+        popup = paste0("<center>Start<br>", input$x1, ", ", input$y1, "<center>")
+      ) %>% 
+      addAwesomeMarkers(
+        lng = input$y2, lat = input$x2, group = "Start/end",
+        icon = awesomeIcons(
+          markerColor = "blue",
+          icon = "stop", library = "fa", iconColor = "#FFF"
+        ),
+        popup = paste0("<center>End<br>", input$x2, ", ", input$y2, "<center>")
       ) %>% 
       # Overlay groups: features in buffer
       addPolylines(

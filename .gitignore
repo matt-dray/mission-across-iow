@@ -46,3 +46,6 @@ po/*~
 
 # Mac
 .DS_Store
+
+# Deployment
+rsconnect
