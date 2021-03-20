@@ -13,3 +13,8 @@
 }
 
 * { font-family: 'IBM Plex Sans Condensed', sans-serif; }
+
+th {
+  color: #BEBEBE;
+  font-weight: normal;
+}

@@ -4,6 +4,31 @@
 
 server <- function(input, output) {
   
+  
+  output$obstructions <- renderTable({
+    
+    # Build line between user's points, clip to IOW boundary
+    line <- make_line(
+      x1 = input$x1, y1 = input$y1, 
+      x2 = input$x2, y2 = input$y2, 
+      boundary_poly = iow_extent
+    )
+    
+    # Find intersection between features and line
+    obstructions <- map(.x = features, ~find_obstruction(.x, line)) %>% 
+      set_names("barrs", "bldgs", "natur", "wways")
+    
+    # Build text output
+    tibble(
+      Barriers = nrow(obstructions$barrs),
+      Buildings = nrow(obstructions$bldgs),
+      Waterways = nrow(obstructions$wways),
+      `Water bodies` = nrow(filter(obstructions$natur, type == "water")
+      )
+    )
+    
+  }, width = "100%", align = "c")
+  
   output$map <- renderLeaflet({
     
     # Build line between user's points, clip to IOW boundary
@@ -106,4 +131,5 @@ server <- function(input, output) {
       addFullscreenControl()  # clickable full-screen button
     
   })
+  
 }

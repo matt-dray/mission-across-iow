@@ -5,8 +5,8 @@
 ui <- fluidPage(
     
     theme = bs_theme(
-        bg = "#333333",
-        fg = "#FFFFFF",
+        bg = "#333",
+        fg = "#FFF",
         primary = "#BEBEBE",
         base_font = font_google("IBM Plex Sans Condensed")
     ),
@@ -29,14 +29,16 @@ ui <- fluidPage(
             
             p("Find the best straight line route across",
               a(href = "https://en.wikipedia.org/wiki/Isle_of_Wight", 
-                "the Isle of Wight"), "UK"
+                "the Isle of Wight"), "(UK)"
             ),
-            p("Inspired by",
+            p("By", 
+              a(href = "https://www.github.com/matt-dray/mission-across-iow", "Matt Dray"),
+              "with inspiration from",
               a(href = "https://www.youtube.com/channel/UCW5OrUZ4SeUYkUg1XqcjFYA", 
-                "Tom 'Geowizard' Davies")),
+                "Tom 'GeoWizard' Davies")),
             hr(),
             
-            p("Select start and end points."),
+            p("Select start and end points"),
             fluidRow(
                 column(
                     width = 6, 
@@ -66,11 +68,8 @@ ui <- fluidPage(
                 )
             ),
             hr(),
-            
-            p(
-                a(href="https://www.matt-dray.com", "Matt Dray"), "|", 
-                a(href="https://www.github.com/matt-dray/mission-across-iow", "Source")
-            )
+            p("Obstructions on this path"),
+            tableOutput("obstructions")
             
         ),  # end sidebarPanel
         
